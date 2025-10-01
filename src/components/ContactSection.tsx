@@ -3,6 +3,15 @@ import { Phone, MessageSquare } from "lucide-react";
 import { trackPhoneCall, trackMessenger, trackQuoteRequest } from "@/utils/analytics";
 import { useFadeIn } from "@/hooks/use-fade-in";
 
+// WhatsApp Logo Component
+const WhatsAppIcon = ({ className }: { className?: string }) => (
+  <img 
+    src="/whatsapp-svgrepo-com.svg" 
+    alt="WhatsApp" 
+    className={className}
+  />
+);
+
 const ContactSection = () => {
   // Fade-in animations
   const { elementRef: headerRef, isVisible: headerVisible } = useFadeIn({ delay: 200 });
@@ -15,7 +24,13 @@ const ContactSection = () => {
 
   const handleMessengerClick = () => {
     trackMessenger('contact_section');
-    window.open("https://wa.me/447735852822", "_blank");
+    const defaultMessage = "Hi Chris! I'd like to request a quote via WhatsApp. Could you please get back to me?";
+    try {
+      const phone = "447735852822";
+      const encoded = encodeURIComponent(defaultMessage);
+      const waUrl = `https://wa.me/${phone}?text=${encoded}`;
+      window.open(waUrl, "_blank");
+    } catch {}
   };
 
   const handleFacebookClick = () => {
@@ -59,23 +74,28 @@ const ContactSection = () => {
             Get a Free Quote
                 </Button>
 
+          {/* Call Button */}
+          <Button
+            onClick={handleCallClick}
+            className="flex items-center gap-4 bg-transparent hover:bg-transparent p-0 h-auto shadow-none hover:shadow-none transition-all duration-300 hover:scale-105"
+          >
+            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg">
+              <Phone className="w-8 h-8 text-blue-600" />
+            </div>
+            <div className="flex flex-col items-start">
+              <span className="text-purple-300 text-sm font-semibold uppercase tracking-wide">Call me</span>
+              <span className="text-purple-100 text-xl font-bold">07735 852822</span>
+            </div>
+          </Button>
+
           {/* WhatsApp Button */}
                 <Button 
                   onClick={handleMessengerClick}
-            className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white font-semibold px-8 py-4 rounded-xl flex items-center gap-3"
+            className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white font-semibold px-8 h-16 rounded-xl flex items-center gap-3 transition-all duration-300 hover:scale-105"
           >
-            <MessageSquare className="w-5 h-5" />
-            WhatsApp
+            <WhatsAppIcon className="w-5 h-5 animate-bounce" />
+            WhatsApp Me
                 </Button>
-
-          {/* Call Button */}
-                    <Button
-            onClick={handleCallClick}
-            className="w-full sm:w-auto bg-white hover:bg-white/90 text-black font-semibold px-8 py-4 rounded-xl flex items-center gap-3"
-          >
-            <Phone className="w-5 h-5" />
-            Call: 07735 852822
-                    </Button>
               </div>
 
         {/* Facebook Link */}

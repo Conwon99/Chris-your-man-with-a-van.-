@@ -10,7 +10,10 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "convert-images": "node scripts/convert-to-webp.js",
-    "optimize": "npm run convert-images && npm run build"
+    "optimize": "npm run convert-images && npm run build",
+    "test-server": "node test-server.js",
+    "serve": "python -m http.server 8000",
+    "prebuild": "copy simple-tracker.js dist\\simple-tracker.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -45,8 +48,10 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "cors": "^2.8.5",
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.6.0",
+    "express": "^5.1.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.462.0",
     "next-themes": "^0.3.0",
@@ -83,5 +88,18 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0",
     "vite": "^5.4.19"
-  }
+  },
+  "description": "A lightweight, privacy-focused JavaScript tracking script for real-time website analytics. Built for the RevuCapture platform to provide comprehensive visitor insights with minimal performance impact.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Conwon99/Chris-your-man-with-a-van.-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Conwon99/Chris-your-man-with-a-van.-/issues"
+  },
+  "homepage": "https://github.com/Conwon99/Chris-your-man-with-a-van.-#readme"
 }

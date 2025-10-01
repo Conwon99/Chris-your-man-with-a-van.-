@@ -3,10 +3,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { useFadeIn } from "@/hooks/use-fade-in";
 import { Phone, MessageSquare, Mail, Clock, MapPin } from "lucide-react";
+
+// WhatsApp Logo Component
+const WhatsAppIcon = ({ className }: { className?: string }) => (
+  <img 
+    src="/whatsapp-svgrepo-com.svg" 
+    alt="WhatsApp" 
+    className={className}
+  />
+);
 import LazyImage from "@/components/LazyImage";
 import { trackPhoneCall, trackMessenger, trackQuoteRequest, trackFormInteraction } from "@/utils/analytics";
 
@@ -14,7 +22,7 @@ const Hero = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    service: '',
+    phone: '',
     message: ''
   });
   const { toast } = useToast();
@@ -25,74 +33,107 @@ const Hero = () => {
   const { elementRef: buttonsRef, isVisible: buttonsVisible } = useFadeIn({ delay: 600 });
   const { elementRef: formRef, isVisible: formVisible } = useFadeIn({ delay: 800 });
 
-  const serviceOptions = [
-    'Small Removals',
-    'Courier Services', 
-    'Tip Runs / Waste Removal',
-    'Flat-Pack Assembly',
-    'In-Store Collection & Delivery',
-    'Garage & Shed Clearances',
-    'End-of-Tenancy Clearance',
-    'General Waste Removal'
-  ];
+
+
+  const openWhatsApp = (text: string): void => {
+    try {
+      const phone = "447735852822"; // international format, no +
+      const encoded = encodeURIComponent(text);
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      const waUrl = `https://wa.me/${phone}?text=${encoded}`;
+      if (isMobile) {
+        window.location.href = waUrl;
+      } else {
+        window.open(waUrl, "_blank");
+      }
+    } catch {}
+  };
+
+  const openMessenger = async (text: string): Promise<void> => {
+    try {
+      if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try { document.execCommand('copy'); } catch {}
+        document.body.removeChild(ta);
+      }
+    } catch {}
+
+    const messengerUrl = "https://m.me/cyourmanwithavan";
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (isMobile) {
+      window.location.href = messengerUrl;
+    } else {
+      window.open(messengerUrl, "_blank");
+    }
+  };
 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     try {
-      const response = await fetch('https://formspree.io/f/xzzjbzgl', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          service: formData.service,
-          message: formData.message,
-          _subject: 'Free Quote Request from Website'
-        }),
-      });
+      // Create WhatsApp message with form data
+      const whatsappMessage = `Hi Chris! I'd like to request a quote for your van services.
 
-      if (response.ok) {
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Message: ${formData.message}
+
+Please get back to me with a quote. Thanks!`;
+
+      // Open WhatsApp with pre-filled message (mobile uses app, desktop uses web)
+      openWhatsApp(whatsappMessage);
+
         // Track successful form submission
-        trackQuoteRequest('contact_form', [formData.service]);
+      trackQuoteRequest('contact_form', []);
         trackFormInteraction('quote_form', 'submit_success');
         
         toast({
-          title: "Quote request sent!",
-          description: "Thank you for your request. We'll respond within 24 hours.",
+        title: "Redirecting to WhatsApp!",
+        description: "You'll be taken to WhatsApp to send your quote request.",
         });
         
-        // Reset form
+      // Already opened via openWhatsApp above
+      
+      // Reset form after opening WhatsApp
+      setTimeout(() => {
         setFormData({
           name: '',
           email: '',
-          service: '',
+          phone: '',
           message: ''
         });
-      } else {
-        throw new Error('Failed to send message');
-      }
+      }, 100);
+      
     } catch (error) {
       trackFormInteraction('quote_form', 'submit_error');
       toast({
-        title: "Error sending request",
+        title: "Error preparing request",
         description: "Please try again or contact us directly.",
         variant: "destructive",
       });
     }
   };
 
+
   const handleCallClick = () => {
-    trackPhoneCall('hero_section');
+    trackPhoneCall('hero_quick_call');
     window.location.href = "tel:+447735852822";
   };
 
   const handleMessengerClick = () => {
     trackMessenger('hero_section');
-    window.open("https://wa.me/447735852822", "_blank");
+    const message = `Hi Chris! I'd like to request a quote for your van services.\n\nName: ${formData.name || ''}\nEmail: ${formData.email || ''}\nPhone: ${formData.phone || ''}\nMessage: ${formData.message || ''}\n\nPlease get back to me with a quote. Thanks!`;
+    openWhatsApp(message);
   };
 
   return (
@@ -177,17 +218,15 @@ const Hero = () => {
             >
               <Button 
                 onClick={handleCallClick}
-                className="flex items-center gap-3 bg-white hover:bg-white/90 text-black rounded-xl px-8 py-5 justify-start text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                className="flex items-center gap-8 bg-transparent hover:bg-transparent p-0 h-auto text-white shadow-none hover:shadow-none transition-all duration-300 hover:scale-105"
               >
-                <Phone className="w-6 h-6" />
-                Call: 07735 852822
-              </Button>
-              <Button 
-                onClick={handleMessengerClick}
-                className="flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white rounded-xl px-8 py-5 justify-start text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-              >
-                <MessageSquare className="w-6 h-6" />
-                WhatsApp
+                <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-lg ring-4 ring-blue-500">
+                  <Phone className="w-12 h-12 text-blue-700" />
+                </div>
+                <div className="flex flex-col items-start">
+                  <span className="text-white text-lg font-semibold uppercase tracking-wide">Call for a free quote</span>
+                  <span className="text-black sm:text-blue-500 text-3xl font-extrabold">07735 852822</span>
+                </div>
               </Button>
             </div>
           </div>
@@ -205,68 +244,41 @@ const Hero = () => {
                 GET A FREE QUOTE.
               </h2>
             </div>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="name" className="text-white font-semibold">Name</Label>
-                  <Input
-                    id="name"
-                    value={formData.name}
-                    onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                    required
-                    className="mt-2 rounded-xl border-2"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="phone" className="text-white font-semibold">Phone</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                    required
-                    className="mt-2 rounded-xl border-2"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <Label htmlFor="email" className="text-white font-semibold">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                  required
-                  className="mt-2 rounded-xl border-2"
-                />
-              </div>
-
-
-              <div>
-                <Label htmlFor="message" className="text-white font-semibold">Message</Label>
-                <Textarea
-                  id="message"
-                  value={formData.message}
-                  onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
-                  placeholder="Tell us about your van service needs..."
-                  className="mt-2 rounded-xl border-2 min-h-[100px]"
-                />
-              </div>
-
+            <div className="space-y-4">
               <div className="text-center">
-                <p className="text-white/80 text-sm mb-4">
-                  This message will be sent to my email
+                <p className="text-white/80 text-sm mb-2">
+                  Choose how you’d like to get your free quote instantly:
                 </p>
               </div>
-
-              <Button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-white font-bold text-lg py-4 px-8 rounded-xl">
-                SEND
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button 
+                  onClick={() => {
+                    trackMessenger('hero_cta_whatsapp');
+                    const msg = `Hi Chris! I'd like to request a quote for your van services.`;
+                    openWhatsApp(msg);
+                  }}
+                  className="w-full sm:w-1/2 bg-green-600 hover:bg-green-700 text-white font-bold text-lg h-20 rounded-xl flex items-center justify-center gap-3"
+                >
+                  <img src="/whatsapp-svgrepo-com.svg" alt="WhatsApp" className="w-6 h-6" />
+                  WhatsApp Me
+                </Button>
+                <Button 
+                  onClick={() => {
+                    trackMessenger('hero_cta_facebook_messenger');
+                    const msg = `Hi Chris! I'd like to request a quote for your van services.`;
+                    openMessenger(msg);
+                  }}
+                  className="w-full sm:w-1/2 bg-gradient-to-r from-[#8C9CFF] to-[#4781FF] hover:from-[#7B8BF0] hover:to-[#3C6FE6] text-white font-bold text-lg h-20 rounded-xl flex items-center justify-center gap-3"
+                >
+                  <img src="/Facebook_Messenger_logo_2020.svg" alt="Facebook Messenger" className="w-6 h-6" />
+                  Facebook Messenger
               </Button>
-            </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
     </section>
   );
 };
