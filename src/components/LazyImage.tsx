@@ -29,6 +29,12 @@ const LazyImage = ({
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
+    // For eager loading, show immediately without IntersectionObserver
+    if (loading === 'eager') {
+      setIsInView(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -47,7 +53,7 @@ const LazyImage = ({
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [loading]);
 
   const handleLoad = () => {
     setIsLoaded(true);
@@ -77,21 +83,41 @@ const LazyImage = ({
       {/* Actual Image */}
       {isInView && (
         <picture>
-          {/* WebP source for modern browsers */}
-          <source srcSet={src} type="image/webp" />
-          {/* Fallback for older browsers */}
-          <img
-            src={hasError ? getFallbackSrc(src) : src}
-            alt={alt}
-            className={`transition-opacity duration-300 ${
-              isLoaded ? 'opacity-100' : 'opacity-0'
-            } ${className}`}
-            style={style}
-            loading={loading}
-            fetchPriority={fetchPriority}
-            onLoad={handleLoad}
-            onError={handleError}
-          />
+          {/* If src is WebP, offer it as source with fallback */}
+          {src.endsWith('.webp') ? (
+            <>
+              <source srcSet={src} type="image/webp" />
+              <img
+                src={hasError ? (fallbackSrc || getFallbackSrc(src)) : (fallbackSrc || getFallbackSrc(src))}
+                alt={alt}
+                className={`transition-opacity duration-300 ${
+                  isLoaded ? 'opacity-100' : 'opacity-0'
+                } ${className}`}
+                style={style}
+                loading={loading}
+                fetchPriority={fetchPriority}
+                onLoad={handleLoad}
+                onError={handleError}
+              />
+            </>
+          ) : (
+            <>
+              {/* If src is not WebP, try WebP version first, fallback to original */}
+              <source srcSet={src.replace(/\.(jpg|jpeg|png)$/i, '.webp')} type="image/webp" />
+              <img
+                src={hasError ? (fallbackSrc || src) : src}
+                alt={alt}
+                className={`transition-opacity duration-300 ${
+                  isLoaded ? 'opacity-100' : 'opacity-0'
+                } ${className}`}
+                style={style}
+                loading={loading}
+                fetchPriority={fetchPriority}
+                onLoad={handleLoad}
+                onError={handleError}
+              />
+            </>
+          )}
         </picture>
       )}
     </div>

@@ -4,15 +4,26 @@ export const useScrollDetection = (threshold: number = 100) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > threshold);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollPosition = window.scrollY || window.pageYOffset;
+          setIsScrolled(scrollPosition > threshold);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    // Initial check
-    handleScroll();
+    // Initial check using requestAnimationFrame to avoid forced reflow
+    window.requestAnimationFrame(() => {
+      const scrollPosition = window.scrollY || window.pageYOffset;
+      setIsScrolled(scrollPosition > threshold);
+    });
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     
     return () => {
       window.removeEventListener('scroll', handleScroll);

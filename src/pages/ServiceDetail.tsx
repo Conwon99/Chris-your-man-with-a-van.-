@@ -1024,7 +1024,7 @@ const ServiceDetail = () => {
                         {relatedService.description}
                       </p>
                       <div className="flex items-center text-[hsl(var(--primary-orange))] font-semibold text-sm group-hover:gap-2 transition-all">
-                        Learn more
+                        View {relatedService.title.toLowerCase()} details
                         <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>

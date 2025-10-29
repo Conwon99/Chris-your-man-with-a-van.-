@@ -140,7 +140,7 @@ const ServicesGrid = () => {
                   <Button 
                     className="w-full bg-[hsl(var(--primary-orange))] hover:bg-[hsl(var(--dark-orange))] text-white font-semibold rounded-full group/button"
                   >
-                    Learn more
+                    Learn more about {service.title.toLowerCase()}
                     <ArrowRight className="w-4 h-4 ml-2 group-hover/button:translate-x-1 transition-transform" />
                   </Button>
                 </Link>

@@ -375,7 +375,7 @@ const LocationDetail = () => {
                         {service.description}
                       </p>
                       <div className="flex items-center text-[hsl(var(--primary-orange))] font-semibold text-sm mt-3 group-hover:gap-2 transition-all">
-                        Learn more
+                        Learn more about {service.title.toLowerCase()}
                         <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>

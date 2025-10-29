@@ -88,7 +88,7 @@ const Navigation = () => {
             >
               <div className="w-20 h-20">
                 <LazyImage
-                  src="/vanlogo.png"
+                  src="/vanlogo.webp"
                   alt="Chris, Your Man with a Van logo"
                   className="w-full h-full object-contain"
                   fallbackSrc="/vanlogo.png"

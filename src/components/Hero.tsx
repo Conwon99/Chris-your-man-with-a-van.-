@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { useFadeIn } from "@/hooks/use-fade-in";
 import { MapPin } from "lucide-react";
 import LazyImage from "@/components/LazyImage";
 import { trackWhatsAppClick, trackFacebookMessengerClick, trackQuoteRequest, trackFormInteraction } from "@/utils/analytics";
@@ -14,11 +13,6 @@ const Hero = () => {
     message: ''
   });
   const { toast } = useToast();
-  
-  // Fade-in animations
-  const { elementRef: titleRef, isVisible: titleVisible } = useFadeIn({ delay: 200 });
-  const { elementRef: descriptionRef, isVisible: descriptionVisible } = useFadeIn({ delay: 400 });
-  const { elementRef: formRef, isVisible: formVisible } = useFadeIn({ delay: 600 });
 
 
 
@@ -116,7 +110,7 @@ Please get back to me with a quote. Thanks!`;
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <LazyImage
-          src="/back1.jpg"
+          src="/back1.webp"
           alt="Chris, Your Man with a Van background"
           className="w-full h-full object-cover object-[40%_center] md:object-center"
           fallbackSrc="/back1.jpg"
@@ -134,10 +128,7 @@ Please get back to me with a quote. Thanks!`;
             <div className="space-y-6">
               
               <h1 
-                ref={titleRef}
-                className={`font-display font-bold text-4xl lg:text-5xl text-white leading-tight drop-shadow-lg transition-all duration-1000 ${
-                  titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
+                className="font-display font-bold text-4xl lg:text-5xl text-white leading-tight drop-shadow-lg"
               >
                 <div className="relative inline-block">
                   {/* Arrow SVG - positioned behind text */}
@@ -164,10 +155,7 @@ Please get back to me with a quote. Thanks!`;
               </div>
               
               <p 
-                ref={descriptionRef}
-                className={`text-lg text-white/90 font-medium max-w-lg leading-relaxed drop-shadow-md transition-all duration-1000 ${
-                  descriptionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
+                className="text-lg text-white/90 font-medium max-w-lg leading-relaxed drop-shadow-md"
               >
                 Professional van services across Ayrshire & beyond - courier services across the UK. Small removals, courier services, tip runs, waste removal, flat-pack assembly, and in-store collection & delivery. SEPA registered, 5-star service, all jobs done personally. Free quotes via WhatsApp.
               </p>
@@ -196,7 +184,7 @@ Please get back to me with a quote. Thanks!`;
               {/* Mobile-only image after subtext */}
               <div className="md:hidden mt-6">
                 <LazyImage
-                  src="/back1.jpg"
+                  src="/back1.webp"
                   alt="Chris, Your Man with a Van mobile image"
                   className="w-full h-auto rounded-lg shadow-lg"
                   fallbackSrc="/back1.jpg"
@@ -207,10 +195,7 @@ Please get back to me with a quote. Thanks!`;
 
           {/* Contact Form */}
           <div 
-            ref={formRef}
-            className={`card-service transition-all duration-1000 ${
-              formVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
+            className="card-service"
             id="contact-form"
           >
             <div className="text-center mb-6">
