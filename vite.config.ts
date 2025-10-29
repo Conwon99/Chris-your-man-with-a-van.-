@@ -31,12 +31,16 @@ export default defineConfig(({ mode }) => ({
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: true,
+        drop_console: mode === 'production',
         drop_debugger: true,
       },
     },
     // Optimize chunk size
     chunkSizeWarningLimit: 1000,
+    // Enable CSS code splitting
+    cssCodeSplit: true,
+    // Inline small assets
+    assetsInlineLimit: 4096,
   },
   // Optimize dependencies
   optimizeDeps: {

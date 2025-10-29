@@ -6,6 +6,7 @@ interface LazyImageProps {
   className?: string;
   fallbackSrc?: string;
   loading?: 'lazy' | 'eager';
+  fetchPriority?: 'high' | 'low' | 'auto';
   style?: React.CSSProperties;
   onLoad?: () => void;
   onError?: () => void;
@@ -17,6 +18,7 @@ const LazyImage = ({
   className = '', 
   fallbackSrc,
   loading = 'lazy',
+  fetchPriority,
   style,
   onLoad,
   onError 
@@ -86,6 +88,7 @@ const LazyImage = ({
             } ${className}`}
             style={style}
             loading={loading}
+            fetchPriority={fetchPriority}
             onLoad={handleLoad}
             onError={handleError}
           />

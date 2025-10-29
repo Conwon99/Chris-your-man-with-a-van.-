@@ -23,6 +23,9 @@ const Index = () => {
         <meta property="og:description" content="Professional van services across Ayrshire. Small removals, courier services, waste removal, flat-pack assembly. SEPA registered, 5-star service." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://chrisyourmanwithavan.netlify.app/" />
+        <meta property="og:image" content="https://chrisyourmanwithavan.netlify.app/vanlogo.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://chrisyourmanwithavan.netlify.app/vanlogo.png" />
       </Helmet>
       <main className="min-h-screen">
       <Navigation />

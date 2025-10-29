@@ -6,7 +6,7 @@ import LazyImage from "@/components/LazyImage";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { trackMessenger, trackNavigation } from "@/utils/analytics";
+import { trackWhatsAppClick, trackFacebookMessengerClick, trackNavigation } from "@/utils/analytics";
 
 // WhatsApp Logo Component
 const WhatsAppIcon = ({ className }: { className?: string }) => (
@@ -213,26 +213,32 @@ const LocationDetail = () => {
   const services = [
     {
       title: "Small Removals & House Moves",
+      slug: "small-removals",
       description: `Professional removal services in ${location.name}. Whether you're moving house, relocating your office, or just need furniture moved, I provide a friendly, reliable service.`
     },
     {
       title: "Courier Services & Delivery",
+      slug: "courier",
       description: `Fast, reliable courier and delivery services throughout ${location.name} and surrounding areas. Same-day service available for urgent deliveries.`
     },
     {
       title: "Tip Runs & Waste Removal",
+      slug: "waste-removal",
       description: `SEPA registered waste removal and tip run services in ${location.name}. Professional disposal of household waste, garden waste, and unwanted items.`
     },
     {
       title: "In-Store Collection & Delivery",
+      slug: "collection-and-delivery",
       description: `Collection from furniture stores, online purchases, and delivery straight to your door in ${location.name}. No need to worry about transport - I'll handle it for you.`
     },
     {
       title: "End-of-Tenancy Clearance",
+      slug: "end-of-tenancy",
       description: `Complete property clearance for tenants and landlords in ${location.name}. Fast, thorough service to get properties ready for the next tenant.`
     },
     {
       title: "Flat Pack Assembly",
+      slug: "flat-pack-assembly",
       description: `Professional flat pack furniture assembly service in ${location.name}. Save time and frustration - I'll assemble your furniture correctly the first time.`
     }
   ];
@@ -265,7 +271,7 @@ const LocationDetail = () => {
   ];
 
   const handleWhatsAppClick = () => {
-    trackMessenger(`location_${slug}_whatsapp`);
+    trackWhatsAppClick(`location_${slug}`);
     const defaultMessage = `Hi Chris! I'd like to request a quote for van services in ${location.name}. Could you please get back to me?`;
     try {
       const phone = "447735852822";
@@ -276,8 +282,8 @@ const LocationDetail = () => {
   };
 
   const handleFacebookMessengerClick = () => {
-    trackMessenger(`location_${slug}_messenger`);
-    const messengerUrl = "https://m.me/cyourmanwithavan";
+    trackFacebookMessengerClick(`location_${slug}`);
+    const messengerUrl = "https://m.me/chrisyourmanwithavankilmarnock";
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     if (isMobile) {
       window.location.href = messengerUrl;
@@ -297,6 +303,9 @@ const LocationDetail = () => {
         <meta property="og:description" content={`Professional van services in ${location.fullName}. Small removals, courier services, waste removal, and more.`} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`https://chrisyourmanwithavan.netlify.app/locations/${slug}`} />
+        <meta property="og:image" content="https://chrisyourmanwithavan.netlify.app/vanlogo.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://chrisyourmanwithavan.netlify.app/vanlogo.png" />
       </Helmet>
 
       <main className="min-h-screen">
@@ -350,19 +359,28 @@ const LocationDetail = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               {services.map((service, index) => (
-                <div key={index} className="card-service">
+                <Link
+                  key={index}
+                  to={`/services/${service.slug}`}
+                  onClick={() => trackNavigation(`location_service_${service.slug}`)}
+                  className="card-service hover:border-[hsl(var(--primary-orange))]/50 transition-all duration-300 group cursor-pointer"
+                >
                   <div className="flex items-start gap-3 mb-3">
                     <div className="w-2 h-2 bg-[hsl(var(--primary-orange))] rounded-full mt-2 flex-shrink-0" />
-                    <div>
-                      <h3 className="font-display text-xl font-bold text-white mb-2">
+                    <div className="flex-1">
+                      <h3 className="font-display text-xl font-bold text-white mb-2 group-hover:text-[hsl(var(--primary-orange))] transition-colors">
                         {service.title}
                       </h3>
                       <p className="text-white/80 text-sm leading-relaxed">
                         {service.description}
                       </p>
+                      <div className="flex items-center text-[hsl(var(--primary-orange))] font-semibold text-sm mt-3 group-hover:gap-2 transition-all">
+                        Learn more
+                        <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
 
@@ -520,24 +538,112 @@ const LocationDetail = () => {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
-              <div className="card-service text-center p-6">
-                <p className="text-white/90">Small Removals & House Moves</p>
-              </div>
-              <div className="card-service text-center p-6">
-                <p className="text-white/90">Courier Services & Delivery</p>
-              </div>
-              <div className="card-service text-center p-6">
-                <p className="text-white/90">Tip Runs & Waste Removal</p>
-              </div>
-              <div className="card-service text-center p-6">
-                <p className="text-white/90">In-Store Collection & Delivery</p>
-              </div>
-              <div className="card-service text-center p-6">
-                <p className="text-white/90">End-of-Tenancy Clearance</p>
-              </div>
-              <div className="card-service text-center p-6">
-                <p className="text-white/90">Flat Pack Assembly</p>
-              </div>
+              <Link
+                to="/services/small-removals"
+                onClick={() => trackNavigation('location_to_service_small_removals')}
+                className="card-service text-center p-6 hover:border-[hsl(var(--primary-orange))]/50 transition-all duration-300 group"
+              >
+                <p className="text-white/90 group-hover:text-[hsl(var(--primary-orange))] transition-colors">Small Removals & House Moves</p>
+                <ArrowRight className="w-4 h-4 text-white/50 mx-auto mt-2 group-hover:text-[hsl(var(--primary-orange))] group-hover:translate-x-1 transition-all" />
+              </Link>
+              <Link
+                to="/services/courier"
+                onClick={() => trackNavigation('location_to_service_courier')}
+                className="card-service text-center p-6 hover:border-[hsl(var(--primary-orange))]/50 transition-all duration-300 group"
+              >
+                <p className="text-white/90 group-hover:text-[hsl(var(--primary-orange))] transition-colors">Courier Services & Delivery</p>
+                <ArrowRight className="w-4 h-4 text-white/50 mx-auto mt-2 group-hover:text-[hsl(var(--primary-orange))] group-hover:translate-x-1 transition-all" />
+              </Link>
+              <Link
+                to="/services/waste-removal"
+                onClick={() => trackNavigation('location_to_service_waste_removal')}
+                className="card-service text-center p-6 hover:border-[hsl(var(--primary-orange))]/50 transition-all duration-300 group"
+              >
+                <p className="text-white/90 group-hover:text-[hsl(var(--primary-orange))] transition-colors">Tip Runs & Waste Removal</p>
+                <ArrowRight className="w-4 h-4 text-white/50 mx-auto mt-2 group-hover:text-[hsl(var(--primary-orange))] group-hover:translate-x-1 transition-all" />
+              </Link>
+              <Link
+                to="/services/collection-and-delivery"
+                onClick={() => trackNavigation('location_to_service_collection_delivery')}
+                className="card-service text-center p-6 hover:border-[hsl(var(--primary-orange))]/50 transition-all duration-300 group"
+              >
+                <p className="text-white/90 group-hover:text-[hsl(var(--primary-orange))] transition-colors">In-Store Collection & Delivery</p>
+                <ArrowRight className="w-4 h-4 text-white/50 mx-auto mt-2 group-hover:text-[hsl(var(--primary-orange))] group-hover:translate-x-1 transition-all" />
+              </Link>
+              <Link
+                to="/services/end-of-tenancy"
+                onClick={() => trackNavigation('location_to_service_end_tenancy')}
+                className="card-service text-center p-6 hover:border-[hsl(var(--primary-orange))]/50 transition-all duration-300 group"
+              >
+                <p className="text-white/90 group-hover:text-[hsl(var(--primary-orange))] transition-colors">End-of-Tenancy Clearance</p>
+                <ArrowRight className="w-4 h-4 text-white/50 mx-auto mt-2 group-hover:text-[hsl(var(--primary-orange))] group-hover:translate-x-1 transition-all" />
+              </Link>
+              <Link
+                to="/services/flat-pack-assembly"
+                onClick={() => trackNavigation('location_to_service_flat_pack')}
+                className="card-service text-center p-6 hover:border-[hsl(var(--primary-orange))]/50 transition-all duration-300 group"
+              >
+                <p className="text-white/90 group-hover:text-[hsl(var(--primary-orange))] transition-colors">Flat Pack Assembly</p>
+                <ArrowRight className="w-4 h-4 text-white/50 mx-auto mt-2 group-hover:text-[hsl(var(--primary-orange))] group-hover:translate-x-1 transition-all" />
+              </Link>
+            </div>
+
+            <div className="text-center mt-12">
+              <Link
+                to="/services"
+                onClick={() => trackNavigation('view_all_services_from_location')}
+                className="inline-flex items-center gap-2 text-[hsl(var(--primary-orange))] hover:text-[hsl(var(--dark-orange))] font-semibold text-lg transition-colors"
+              >
+                View All Services
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Nearby Locations Section */}
+        <section className="py-20 px-4 bg-[hsl(var(--background))]">
+          <div className="container mx-auto max-w-7xl">
+            <div className="text-center mb-16">
+              <h2 className="font-display text-4xl lg:text-5xl font-bold text-white mb-4">
+                Also Serving Nearby Areas
+              </h2>
+              <p className="text-xl text-white/80 max-w-3xl mx-auto">
+                I also provide van services in these nearby Ayrshire locations. Click to learn more about services in each area.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+              {[
+                { name: "Cumnock", slug: "cumnock" },
+                { name: "Ayr", slug: "ayr" },
+                { name: "Kilmarnock", slug: "kilmarnock" },
+                { name: "Irvine", slug: "irvine" },
+                { name: "Troon", slug: "troon" },
+                { name: "Prestwick", slug: "prestwick" },
+              ].filter(loc => loc.slug !== slug).map((nearbyLocation) => (
+                <Link
+                  key={nearbyLocation.slug}
+                  to={`/locations/${nearbyLocation.slug}`}
+                  onClick={() => trackNavigation(`location_to_location_${nearbyLocation.slug}`)}
+                  className="flex items-center gap-3 p-4 rounded-lg bg-[hsl(var(--card))] border border-white/10 hover:border-[hsl(var(--primary-orange))]/50 transition-all duration-300 group"
+                >
+                  <MapPin className="w-5 h-5 text-[hsl(var(--primary-orange))] flex-shrink-0" />
+                  <span className="text-white font-medium group-hover:text-[hsl(var(--primary-orange))] transition-colors flex-1">{nearbyLocation.name}</span>
+                  <ArrowRight className="w-4 h-4 text-white/50 group-hover:text-[hsl(var(--primary-orange))] group-hover:translate-x-1 transition-all" />
+                </Link>
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <Link
+                to="/locations"
+                onClick={() => trackNavigation('view_all_locations_from_location')}
+                className="inline-flex items-center gap-2 text-[hsl(var(--primary-orange))] hover:text-[hsl(var(--dark-orange))] font-semibold text-lg transition-colors"
+              >
+                View All Service Locations
+                <ArrowRight className="w-5 h-5" />
+              </Link>
             </div>
           </div>
         </section>

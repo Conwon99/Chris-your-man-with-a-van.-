@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Truck, Package, Trash2, ShoppingCart, Home, Wrench, Phone, MessageSquare } from "lucide-react";
+import { ArrowRight, Truck, Package, Trash2, ShoppingCart, Home, Wrench, Phone, MessageSquare, MapPin } from "lucide-react";
 import LazyImage from "@/components/LazyImage";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ContactSection from "@/components/ContactSection";
-import { trackServiceClick, trackPhoneCall, trackMessenger } from "@/utils/analytics";
+import { trackServiceClick, trackPhoneCall, trackWhatsAppClick, trackNavigation } from "@/utils/analytics";
 
 // WhatsApp Logo Component
 const WhatsAppIcon = ({ className }: { className?: string }) => (
@@ -19,6 +19,8 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 );
 
 const Services = () => {
+  const navigate = useNavigate();
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -135,14 +137,9 @@ const Services = () => {
   ];
 
   const handleQuoteClick = (serviceTitle: string) => {
-    trackServiceClick(serviceTitle, 'services_page');
-    const defaultMessage = `Hi Chris! I'd like to request a quote for ${serviceTitle}. Could you please get back to me?`;
-    try {
-      const phone = "447735852822";
-      const encoded = encodeURIComponent(defaultMessage);
-      const waUrl = `https://wa.me/${phone}?text=${encoded}`;
-      window.open(waUrl, "_blank");
-    } catch {}
+    trackServiceClick(serviceTitle, 'services_page_get_quote');
+    trackNavigation('contact_page');
+    navigate('/contact');
   };
 
   const handleCallClick = () => {
@@ -151,7 +148,7 @@ const Services = () => {
   };
 
   const handleWhatsAppClick = () => {
-    trackMessenger('services_page');
+    trackWhatsAppClick('services_page');
     const defaultMessage = "Hi Chris! I'd like to request a quote via WhatsApp. Could you please get back to me?";
     try {
       const phone = "447735852822";
@@ -172,6 +169,9 @@ const Services = () => {
         <meta property="og:description" content="Professional van services in Cumnock & Ayrshire: small removals, courier services, tip runs, waste removal, flat-pack assembly, in-store collection & delivery." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://chrisyourmanwithavan.netlify.app/services" />
+        <meta property="og:image" content="https://chrisyourmanwithavan.netlify.app/vanlogo.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://chrisyourmanwithavan.netlify.app/vanlogo.png" />
       </Helmet>
 
       <main className="min-h-screen">
@@ -291,8 +291,58 @@ const Services = () => {
           </div>
         </section>
 
-        {/* Why Choose Us Section */}
+        {/* Service Areas Section */}
         <section className="py-20 px-4 bg-[hsl(var(--muted))]">
+          <div className="container mx-auto max-w-7xl">
+            <div className="text-center mb-16">
+              <h2 className="font-display text-4xl lg:text-5xl font-bold text-white mb-4">
+                Available Across Ayrshire
+              </h2>
+              <p className="text-xl text-white/80 max-w-3xl mx-auto">
+                All services are available throughout Ayrshire. Click any location to learn more about van services in that area.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+              {[
+                { name: "Cumnock", slug: "cumnock", description: "Home base - fast, reliable service" },
+                { name: "Ayr", slug: "ayr", description: "Major town - comprehensive coverage" },
+                { name: "Kilmarnock", slug: "kilmarnock", description: "Largest town in East Ayrshire" },
+                { name: "Irvine", slug: "irvine", description: "Coastal town - full service available" },
+                { name: "Troon", slug: "troon", description: "Popular seaside destination" },
+                { name: "Prestwick", slug: "prestwick", description: "Airport town - convenient access" },
+              ].map((location) => (
+                <Link
+                  key={location.slug}
+                  to={`/locations/${location.slug}`}
+                  onClick={() => trackNavigation(`services_to_location_${location.slug}`)}
+                  className="flex items-start gap-3 p-4 rounded-lg bg-[hsl(var(--card))] border border-white/10 hover:border-[hsl(var(--primary-orange))]/50 transition-all duration-300 group"
+                >
+                  <MapPin className="w-5 h-5 text-[hsl(var(--primary-orange))] flex-shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <h3 className="text-white font-semibold mb-1 group-hover:text-[hsl(var(--primary-orange))] transition-colors">{location.name}</h3>
+                    <p className="text-white/70 text-sm">{location.description}</p>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-white/50 group-hover:text-[hsl(var(--primary-orange))] group-hover:translate-x-1 transition-all flex-shrink-0" />
+                </Link>
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <Link
+                to="/locations"
+                onClick={() => trackNavigation('view_all_locations_from_services')}
+                className="inline-flex items-center gap-2 text-[hsl(var(--primary-orange))] hover:text-[hsl(var(--dark-orange))] font-semibold text-lg transition-colors"
+              >
+                View All Service Locations
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Why Choose Us Section */}
+        <section className="py-20 px-4 bg-[hsl(var(--background))]">
           <div className="container mx-auto max-w-7xl">
             <div className="text-center mb-16">
               <h2 className="font-display text-4xl lg:text-5xl font-bold text-white mb-4">

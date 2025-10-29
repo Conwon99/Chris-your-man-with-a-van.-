@@ -109,7 +109,7 @@
       ],
       "serviceType": [
         "Small Removals",
-        "House Moves",
+        "House Moves", 
         "Office Relocations",
         "Furniture Transport",
         "Courier Services",
@@ -218,7 +218,7 @@
               "name": "Courier Services & Delivery",
               "description": "Reliable courier and delivery services across Ayrshire and throughout the UK. Same-day service available for urgent deliveries. Package collection, secure transport, and professional service.",
               "provider": {
-                "@type": "LocalBusiness",
+                "@type": "LocalBusiness", 
                 "name": "Chris, Your Man with a Van"
               },
               "areaServed": [
@@ -411,40 +411,62 @@
     <link rel="icon" type="image/svg+xml" href="/maple-leaf.svg" />
     <link rel="alternate icon" href="/vanlogo.png" />
     
-    <!-- Preload critical resources -->
-    <link rel="preload" href="/hero window.webp" as="image" type="image/webp">
-    <link rel="preload" href="/aboutimg.webp" as="image" type="image/webp">
-    <link rel="preload" href="/src/main.tsx" as="script" crossorigin>
-    
-    <!-- Google Fonts with font-display: swap for better performance -->
+    <!-- Critical CSS - Inlined to eliminate render-blocking -->
+    <style id="critical-css">
+:root{--sunshine-yellow:51 85% 60%;--primary-orange:19 67% 49%;--dark-orange:19 67% 39%;--background:0 0% 0%;--foreground:0 0% 100%;--card:0 0% 10%;--card-foreground:0 0% 100%;--primary:19 67% 49%;--primary-foreground:0 0% 100%;--muted:0 0% 15%;--muted-foreground:0 0% 80%;--border:0 0% 20%;--radius:1rem}*{box-sizing:border-box;margin:0;padding:0;border:0}html{overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}body{margin:0;padding:0;background-color:hsl(var(--background));color:hsl(var(--foreground));font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;line-height:1.5;overflow-x:hidden;-webkit-overflow-scrolling:touch}nav{position:fixed;top:0;width:100%;z-index:50;transition:all .3s ease-in-out}#hero{min-height:100vh;position:relative;display:flex;align-items:center;background-color:#000;overflow:hidden}#root{min-height:100vh}img{max-width:100%;height:auto;display:block}button{cursor:pointer;font-family:inherit}.font-display{font-family:'Outfit',system-ui,sans-serif}
+    </style>
+
+    <!-- Preconnect to external domains early -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/vanfront.jpg" as="image" type="image/jpeg" fetchpriority="high">
+    <link rel="preload" href="/vanlogo.png" as="image" type="image/png" fetchpriority="high">
+    
+    <!-- Defer non-critical CSS - Google Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V7YSJ55C9T"></script>
+    <!-- Defer analytics scripts - load after page render -->
     <script>
+      // Load analytics after page load
+      window.addEventListener('load', function() {
+        // Google Analytics - defer loading
+        const script1 = document.createElement('script');
+        script1.async = true;
+        script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-V7YSJ55C9T';
+        document.head.appendChild(script1);
+        
+        script1.onload = function() {
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-V7YSJ55C9T');
-    </script>
+        };
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L1XB9GKZ7E"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
+        const script2 = document.createElement('script');
+        script2.async = true;
+        script2.src = 'https://www.googletagmanager.com/gtag/js?id=G-L1XB9GKZ7E';
+        document.head.appendChild(script2);
+        
+        script2.onload = function() {
+          if (!window.dataLayer) window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-L1XB9GKZ7E');
-    </script>
+        };
 
-   <!-- RevuCapture Analytics -->
-    <script 
-        src="/simple-tracker.js"
-        data-website-id="chris-van-services">
+        // RevuCapture Analytics - defer
+        const revuScript = document.createElement('script');
+        revuScript.src = '/simple-tracker.js';
+        revuScript.setAttribute('data-website-id', 'chris-van-services');
+        revuScript.async = true;
+        document.head.appendChild(revuScript);
+      });
     </script>
 
 

@@ -2,10 +2,7 @@
 # Redirect all 404s to index.html for client-side routing
 /*    /index.html   200
 
-# Specific redirects for better SEO
-/tree-surgery    /index.html   200
-/lawn-mowing     /index.html   200
-/troon           /index.html   200
+# Legacy redirects removed (not applicable)
 
 # Redirect old hash-based URLs to proper routes (301 redirects for SEO)
 /#services       /services     301

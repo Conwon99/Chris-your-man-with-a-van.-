@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Phone, MessageSquare } from "lucide-react";
-import { trackPhoneCall, trackMessenger, trackQuoteRequest } from "@/utils/analytics";
+import { trackPhoneCall, trackWhatsAppClick, trackFacebookMessengerClick, trackQuoteRequest } from "@/utils/analytics";
 import { useFadeIn } from "@/hooks/use-fade-in";
 
 // WhatsApp Logo Component
@@ -23,7 +23,7 @@ const ContactSection = () => {
   };
 
   const handleMessengerClick = () => {
-    trackMessenger('contact_section');
+    trackWhatsAppClick('contact_section');
     const defaultMessage = "Hi Chris! I'd like to request a quote via WhatsApp. Could you please get back to me?";
     try {
       const phone = "447735852822";
@@ -34,7 +34,7 @@ const ContactSection = () => {
   };
 
   const handleFacebookClick = () => {
-    trackMessenger('contact_section');
+    trackFacebookMessengerClick('contact_section');
     window.open("https://www.facebook.com/chrisyourmanwithavankilmarnock", "_blank");
   };
 

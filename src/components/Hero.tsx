@@ -4,7 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useFadeIn } from "@/hooks/use-fade-in";
 import { MapPin } from "lucide-react";
 import LazyImage from "@/components/LazyImage";
-import { trackMessenger, trackQuoteRequest, trackFormInteraction } from "@/utils/analytics";
+import { trackWhatsAppClick, trackFacebookMessengerClick, trackQuoteRequest, trackFormInteraction } from "@/utils/analytics";
 
 const Hero = () => {
   const [formData, setFormData] = useState({
@@ -53,7 +53,7 @@ const Hero = () => {
       }
     } catch {}
 
-    const messengerUrl = "https://m.me/cyourmanwithavan";
+    const messengerUrl = "https://m.me/chrisyourmanwithavankilmarnock";
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     if (isMobile) {
       window.location.href = messengerUrl;
@@ -121,6 +121,7 @@ Please get back to me with a quote. Thanks!`;
           className="w-full h-full object-cover object-[40%_center] md:object-center"
           fallbackSrc="/back1.jpg"
           loading="eager"
+          fetchPriority="high"
         />
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent md:bg-gradient-to-r md:from-black/80 md:via-black/40 md:to-transparent"></div>
@@ -226,7 +227,7 @@ Please get back to me with a quote. Thanks!`;
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   onClick={() => {
-                    trackMessenger('hero_cta_whatsapp');
+                    trackWhatsAppClick('hero_cta');
                     const msg = `Hi Chris! I'd like to request a quote for your van services.`;
                     openWhatsApp(msg);
                   }}
@@ -237,7 +238,7 @@ Please get back to me with a quote. Thanks!`;
                 </Button>
                 <Button 
                   onClick={() => {
-                    trackMessenger('hero_cta_facebook_messenger');
+                    trackFacebookMessengerClick('hero_cta');
                     const msg = `Hi Chris! I'd like to request a quote for your van services.`;
                     openMessenger(msg);
                   }}

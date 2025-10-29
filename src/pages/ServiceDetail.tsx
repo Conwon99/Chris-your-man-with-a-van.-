@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ArrowRight, MessageSquare, Check, Clock, MapPin, Phone, ShieldCheck } from "lucide-react";
+import { ArrowRight, MessageSquare, Check, Clock, MapPin, Phone, ShieldCheck, Truck, Package, Trash2, ShoppingCart, Home, Wrench } from "lucide-react";
 import LazyImage from "@/components/LazyImage";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { trackMessenger } from "@/utils/analytics";
+import { trackWhatsAppClick, trackFacebookMessengerClick, trackNavigation } from "@/utils/analytics";
 
 // WhatsApp Logo Component
 const WhatsAppIcon = ({ className }: { className?: string }) => (
@@ -647,27 +647,62 @@ const ServiceDetail = () => {
 
   const service = serviceData[slug || ''] || serviceData["small-removals"];
 
-  const handleWhatsAppClick = () => {
-    trackMessenger(`service_${slug}_whatsapp`);
-    const defaultMessage = `Hi Chris! I'd like to request a quote for ${service.title} services. Could you please get back to me?`;
-    try {
-      const phone = "447735852822";
-      const encoded = encodeURIComponent(defaultMessage);
-      const waUrl = `https://wa.me/${phone}?text=${encoded}`;
-      window.open(waUrl, "_blank");
-    } catch {}
+  // Schema.org - FAQPage
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": (service.faqs || []).map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer }
+    }))
   };
 
-  const handleFacebookMessengerClick = () => {
-    trackMessenger(`service_${slug}_messenger`);
-    const messengerUrl = "https://m.me/cyourmanwithavan";
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if (isMobile) {
-      window.location.href = messengerUrl;
-    } else {
-      window.open(messengerUrl, "_blank");
+  // Schema.org - Service
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.title,
+    serviceType: service.title,
+    description: service.metaDescription,
+    provider: { "@type": "LocalBusiness", name: "Chris, Your Man with a Van" },
+    areaServed: [
+      { "@type": "City", name: "Cumnock" },
+      { "@type": "City", name: "Ayr" },
+      { "@type": "City", name: "Kilmarnock" },
+      { "@type": "City", name: "Irvine" },
+      { "@type": "City", name: "Troon" },
+      { "@type": "City", name: "Prestwick" }
+    ],
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "GBP",
+      availability: "https://schema.org/InStock",
+      url: `https://chrisyourmanwithavan.netlify.app/services/${slug}`
     }
   };
+
+          const handleWhatsAppClick = () => {
+            trackWhatsAppClick(`service_${slug}`);
+            const defaultMessage = `Hi Chris! I'd like to request a quote for ${service.title} services. Could you please get back to me?`;
+            try {
+              const phone = "447735852822";
+              const encoded = encodeURIComponent(defaultMessage);
+              const waUrl = `https://wa.me/${phone}?text=${encoded}`;
+              window.open(waUrl, "_blank");
+            } catch {}
+          };
+
+          const handleFacebookMessengerClick = () => {
+            trackFacebookMessengerClick(`service_${slug}`);
+            const messengerUrl = "https://m.me/chrisyourmanwithavankilmarnock";
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            if (isMobile) {
+              window.location.href = messengerUrl;
+            } else {
+              window.open(messengerUrl, "_blank");
+            }
+          };
 
   return (
     <>
@@ -680,6 +715,11 @@ const ServiceDetail = () => {
         <meta property="og:description" content={service.metaDescription} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`https://chrisyourmanwithavan.netlify.app/services/${slug}`} />
+        <meta property="og:image" content="https://chrisyourmanwithavan.netlify.app/vanlogo.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://chrisyourmanwithavan.netlify.app/vanlogo.png" />
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
       </Helmet>
 
       <main className="min-h-screen">
@@ -941,6 +981,114 @@ const ServiceDetail = () => {
                   Transparent, upfront pricing with no hidden fees. I'll always give you a quote before starting any work.
                 </p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Related Services Section */}
+        <section className="py-20 px-4 bg-[hsl(var(--muted))]">
+          <div className="container mx-auto max-w-7xl">
+            <div className="text-center mb-16">
+              <h2 className="font-display text-4xl lg:text-5xl font-bold text-white mb-4">
+                Other Services Available
+              </h2>
+              <p className="text-xl text-white/80 max-w-3xl mx-auto">
+                I offer a full range of van services across Ayrshire. Explore other services that might help with your needs.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { title: "Small Removals & House Moves", slug: "small-removals", icon: Truck, description: "Professional house moves and office relocations across Ayrshire" },
+                { title: "Courier Services & Delivery", slug: "courier", icon: Package, description: "Fast, reliable courier services across Ayrshire and the UK" },
+                { title: "Tip Runs & Waste Removal", slug: "waste-removal", icon: Trash2, description: "SEPA registered waste removal and tip run services" },
+                { title: "In-Store Collection & Delivery", slug: "collection-and-delivery", icon: ShoppingCart, description: "Collection from stores and delivery straight to your door" },
+                { title: "End-of-Tenancy Clearance", slug: "end-of-tenancy", icon: Home, description: "Complete property clearance for tenants and landlords" },
+                { title: "Flat Pack Assembly", slug: "flat-pack-assembly", icon: Wrench, description: "Professional flat pack furniture assembly service" },
+              ].filter(s => s.slug !== slug).slice(0, 3).map((relatedService) => (
+                <Link
+                  key={relatedService.slug}
+                  to={`/services/${relatedService.slug}`}
+                  onClick={() => trackNavigation(`related_service_${relatedService.slug}`)}
+                  className="card-service hover:border-[hsl(var(--primary-orange))]/50 transition-all duration-300 group"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-[hsl(var(--primary-orange))] rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <relatedService.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-display text-xl font-bold text-white mb-2 group-hover:text-[hsl(var(--primary-orange))] transition-colors">
+                        {relatedService.title}
+                      </h3>
+                      <p className="text-white/80 text-sm leading-relaxed mb-3">
+                        {relatedService.description}
+                      </p>
+                      <div className="flex items-center text-[hsl(var(--primary-orange))] font-semibold text-sm group-hover:gap-2 transition-all">
+                        Learn more
+                        <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <Link
+                to="/services"
+                onClick={() => trackNavigation('view_all_services')}
+                className="inline-flex items-center gap-2 text-[hsl(var(--primary-orange))] hover:text-[hsl(var(--dark-orange))] font-semibold text-lg transition-colors"
+              >
+                View All Services
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Service Areas Section */}
+        <section className="py-20 px-4 bg-[hsl(var(--background))]">
+          <div className="container mx-auto max-w-7xl">
+            <div className="text-center mb-16">
+              <h2 className="font-display text-4xl lg:text-5xl font-bold text-white mb-4">
+                Available Throughout Ayrshire
+              </h2>
+              <p className="text-xl text-white/80 max-w-3xl mx-auto">
+                {service.title} is available in all major Ayrshire towns. Click any location to learn more about services in that area.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+              {[
+                { name: "Cumnock", slug: "cumnock" },
+                { name: "Ayr", slug: "ayr" },
+                { name: "Kilmarnock", slug: "kilmarnock" },
+                { name: "Irvine", slug: "irvine" },
+                { name: "Troon", slug: "troon" },
+                { name: "Prestwick", slug: "prestwick" },
+              ].map((location) => (
+                <Link
+                  key={location.slug}
+                  to={`/locations/${location.slug}`}
+                  onClick={() => trackNavigation(`service_to_location_${location.slug}`)}
+                  className="flex items-center gap-3 p-4 rounded-lg bg-[hsl(var(--card))] border border-white/10 hover:border-[hsl(var(--primary-orange))]/50 transition-all duration-300 group"
+                >
+                  <MapPin className="w-5 h-5 text-[hsl(var(--primary-orange))] flex-shrink-0" />
+                  <span className="text-white font-medium group-hover:text-[hsl(var(--primary-orange))] transition-colors">{location.name}</span>
+                  <ArrowRight className="w-4 h-4 text-white/50 ml-auto group-hover:text-[hsl(var(--primary-orange))] group-hover:translate-x-1 transition-all" />
+                </Link>
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <Link
+                to="/locations"
+                onClick={() => trackNavigation('view_all_locations')}
+                className="inline-flex items-center gap-2 text-[hsl(var(--primary-orange))] hover:text-[hsl(var(--dark-orange))] font-semibold text-lg transition-colors"
+              >
+                View All Service Areas
+                <ArrowRight className="w-5 h-5" />
+              </Link>
             </div>
           </div>
         </section>

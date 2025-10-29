@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { MapPin, ArrowRight, MessageSquare } from "lucide-react";
+import { MapPin, ArrowRight, MessageSquare, Truck, Package, Trash2, ShoppingCart, Home, Wrench } from "lucide-react";
 import LazyImage from "@/components/LazyImage";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { trackMessenger, trackNavigation } from "@/utils/analytics";
+import { trackWhatsAppClick, trackFacebookMessengerClick, trackNavigation } from "@/utils/analytics";
 
 // WhatsApp Logo Component
 const WhatsAppIcon = ({ className }: { className?: string }) => (
@@ -147,7 +147,7 @@ const Locations = () => {
   ];
 
   const handleWhatsAppClick = () => {
-    trackMessenger('locations_page_whatsapp');
+    trackWhatsAppClick('locations_page');
     const defaultMessage = "Hi Chris! I'd like to request a quote via WhatsApp. Could you please get back to me?";
     try {
       const phone = "447735852822";
@@ -158,8 +158,8 @@ const Locations = () => {
   };
 
   const handleFacebookMessengerClick = () => {
-    trackMessenger('locations_page_messenger');
-    const messengerUrl = "https://m.me/cyourmanwithavan";
+    trackFacebookMessengerClick('locations_page');
+    const messengerUrl = "https://m.me/chrisyourmanwithavankilmarnock";
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     if (isMobile) {
       window.location.href = messengerUrl;
@@ -183,6 +183,9 @@ const Locations = () => {
         <meta property="og:description" content="Van services across Ayrshire. Serving Cumnock, Ayr, Kilmarnock, Irvine, Troon, Prestwick and surrounding areas." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://chrisyourmanwithavan.netlify.app/locations" />
+        <meta property="og:image" content="https://chrisyourmanwithavan.netlify.app/vanlogo.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://chrisyourmanwithavan.netlify.app/vanlogo.png" />
       </Helmet>
 
       <main className="min-h-screen">
@@ -276,8 +279,62 @@ const Locations = () => {
           </div>
         </section>
 
-        {/* Coverage Stats Section */}
+        {/* Available Services Section */}
         <section className="py-20 px-4 bg-[hsl(var(--muted))]">
+          <div className="container mx-auto max-w-7xl">
+            <div className="text-center mb-16">
+              <h2 className="font-display text-4xl lg:text-5xl font-bold text-white mb-4">
+                All Services Available
+              </h2>
+              <p className="text-xl text-white/80 max-w-3xl mx-auto">
+                Every service is available in all locations across Ayrshire. Click any service to learn more and get a quote.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {[
+                { title: "Small Removals & House Moves", slug: "small-removals", icon: Truck },
+                { title: "Courier Services & Delivery", slug: "courier", icon: Package },
+                { title: "Tip Runs & Waste Removal", slug: "waste-removal", icon: Trash2 },
+                { title: "In-Store Collection & Delivery", slug: "collection-and-delivery", icon: ShoppingCart },
+                { title: "End-of-Tenancy Clearance", slug: "end-of-tenancy", icon: Home },
+                { title: "Flat Pack Assembly", slug: "flat-pack-assembly", icon: Wrench },
+              ].map((service) => (
+                <Link
+                  key={service.slug}
+                  to={`/services/${service.slug}`}
+                  onClick={() => trackNavigation(`locations_to_service_${service.slug}`)}
+                  className="card-service hover:border-[hsl(var(--primary-orange))]/50 transition-all duration-300 group text-center p-6"
+                >
+                  <div className="w-16 h-16 bg-[hsl(var(--primary-orange))] rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <service.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="font-display text-lg font-bold text-white mb-2 group-hover:text-[hsl(var(--primary-orange))] transition-colors">
+                    {service.title}
+                  </h3>
+                  <div className="flex items-center justify-center text-[hsl(var(--primary-orange))] font-semibold text-sm group-hover:gap-2 transition-all">
+                    Learn more
+                    <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <Link
+                to="/services"
+                onClick={() => trackNavigation('view_all_services_from_locations')}
+                className="inline-flex items-center gap-2 text-[hsl(var(--primary-orange))] hover:text-[hsl(var(--dark-orange))] font-semibold text-lg transition-colors"
+              >
+                View All Services
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Coverage Stats Section */}
+        <section className="py-20 px-4 bg-[hsl(var(--background))]">
           <div className="container mx-auto max-w-7xl">
             <div className="grid md:grid-cols-3 gap-8 text-center">
               <div className="p-8 bg-[hsl(var(--card))] rounded-2xl shadow-lg">

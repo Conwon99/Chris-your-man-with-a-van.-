@@ -92,6 +92,8 @@ const Navigation = () => {
                   alt="Chris, Your Man with a Van logo"
                   className="w-full h-full object-contain"
                   fallbackSrc="/vanlogo.png"
+                  loading="eager"
+                  fetchPriority="high"
                 />
               </div>
             </button>

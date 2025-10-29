@@ -102,25 +102,56 @@ export function trackQuoteRequest(source: string, services: string[]): void {
   }
 }
 
-export function trackMessenger(source: string): void {
+export function trackWhatsAppClick(source: string): void {
   try {
     if (typeof window === "undefined") return;
 
     if (typeof window.gtag === "function") {
-      window.gtag("event", "messenger_click", {
+      window.gtag("event", "whatsapp_cta_click", {
         source: source,
+        cta_type: "whatsapp",
       });
     }
 
     if (Array.isArray(window.dataLayer)) {
       window.dataLayer.push({
-        event: "messenger_click",
+        event: "whatsapp_cta_click",
         source: source,
+        cta_type: "whatsapp",
       });
     }
   } catch {
     // Swallow errors
   }
+}
+
+export function trackFacebookMessengerClick(source: string): void {
+  try {
+    if (typeof window === "undefined") return;
+
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "facebook_messenger_cta_click", {
+        source: source,
+        cta_type: "facebook_messenger",
+      });
+    }
+
+    if (Array.isArray(window.dataLayer)) {
+      window.dataLayer.push({
+        event: "facebook_messenger_cta_click",
+        source: source,
+        cta_type: "facebook_messenger",
+      });
+    }
+  } catch {
+    // Swallow errors
+  }
+}
+
+// Legacy function - keeping for backwards compatibility but marking as deprecated
+export function trackMessenger(source: string): void {
+  // Default to WhatsApp tracking for backwards compatibility
+  trackWhatsAppClick(source);
 }
 
 export function trackFormInteraction(action: string, formData?: Record<string, unknown>): void {

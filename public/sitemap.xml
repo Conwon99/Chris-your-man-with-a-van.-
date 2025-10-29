@@ -7,7 +7,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://chrisyourmanwithavan.netlify.app/</loc>
-    <lastmod>2025-01-21</lastmod>
+    <lastmod>2025-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -15,7 +15,7 @@
   <!-- Main Service Pages -->
   <url>
     <loc>https://chrisyourmanwithavan.netlify.app/services</loc>
-    <lastmod>2025-01-21</lastmod>
+    <lastmod>2025-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -23,42 +23,42 @@
   <!-- Service Detail Pages -->
   <url>
     <loc>https://chrisyourmanwithavan.netlify.app/services/small-removals</loc>
-    <lastmod>2025-01-21</lastmod>
+    <lastmod>2025-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://chrisyourmanwithavan.netlify.app/services/courier</loc>
-    <lastmod>2025-01-21</lastmod>
+    <lastmod>2025-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://chrisyourmanwithavan.netlify.app/services/waste-removal</loc>
-    <lastmod>2025-01-21</lastmod>
+    <lastmod>2025-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://chrisyourmanwithavan.netlify.app/services/end-of-tenancy</loc>
-    <lastmod>2025-01-21</lastmod>
+    <lastmod>2025-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://chrisyourmanwithavan.netlify.app/services/flat-pack-assembly</loc>
-    <lastmod>2025-01-21</lastmod>
+    <lastmod>2025-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://chrisyourmanwithavan.netlify.app/services/collection-and-delivery</loc>
-    <lastmod>2025-01-21</lastmod>
+    <lastmod>2025-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -66,7 +66,7 @@
   <!-- Locations Page -->
   <url>
     <loc>https://chrisyourmanwithavan.netlify.app/locations</loc>
-    <lastmod>2025-01-21</lastmod>
+    <lastmod>2025-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -74,42 +74,50 @@
   <!-- Location Detail Pages -->
   <url>
     <loc>https://chrisyourmanwithavan.netlify.app/locations/cumnock</loc>
-    <lastmod>2025-01-21</lastmod>
+    <lastmod>2025-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://chrisyourmanwithavan.netlify.app/locations/ayr</loc>
-    <lastmod>2025-01-21</lastmod>
+    <lastmod>2025-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://chrisyourmanwithavan.netlify.app/locations/kilmarnock</loc>
-    <lastmod>2025-01-21</lastmod>
+    <lastmod>2025-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://chrisyourmanwithavan.netlify.app/locations/irvine</loc>
-    <lastmod>2025-01-21</lastmod>
+    <lastmod>2025-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://chrisyourmanwithavan.netlify.app/locations/troon</loc>
-    <lastmod>2025-01-21</lastmod>
+    <lastmod>2025-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://chrisyourmanwithavan.netlify.app/locations/prestwick</loc>
-    <lastmod>2025-01-21</lastmod>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Contact Page -->
+  <url>
+    <loc>https://chrisyourmanwithavan.netlify.app/contact</loc>
+    <lastmod>2025-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

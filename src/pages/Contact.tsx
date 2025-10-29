@@ -5,7 +5,7 @@ import LazyImage from "@/components/LazyImage";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { trackPhoneCall, trackMessenger, trackExternalLink } from "@/utils/analytics";
+import { trackPhoneCall, trackWhatsAppClick, trackFacebookMessengerClick, trackExternalLink } from "@/utils/analytics";
 
 // WhatsApp Logo Component
 const WhatsAppIcon = ({ className }: { className?: string }) => (
@@ -27,7 +27,7 @@ const Contact = () => {
   };
 
   const handleWhatsAppClick = () => {
-    trackMessenger('contact_page_whatsapp');
+    trackWhatsAppClick('contact_page');
     const defaultMessage = "Hi Chris! I'd like to request a quote. Could you please get back to me?";
     try {
       const phone = "447735852822";
@@ -38,8 +38,8 @@ const Contact = () => {
   };
 
   const handleFacebookMessengerClick = () => {
-    trackMessenger('contact_page_messenger');
-    const messengerUrl = "https://m.me/cyourmanwithavan";
+    trackFacebookMessengerClick('contact_page');
+    const messengerUrl = "https://m.me/chrisyourmanwithavankilmarnock";
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     if (isMobile) {
       window.location.href = messengerUrl;
@@ -69,6 +69,9 @@ const Contact = () => {
         <meta property="og:description" content="Get your free quote for van services in Ayrshire. Contact via WhatsApp, phone, email, or Facebook Messenger." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://chrisyourmanwithavan.netlify.app/contact" />
+        <meta property="og:image" content="https://chrisyourmanwithavan.netlify.app/vanlogo.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://chrisyourmanwithavan.netlify.app/vanlogo.png" />
       </Helmet>
 
       <main className="min-h-screen">
@@ -116,36 +119,36 @@ const Contact = () => {
               <div>
                 <div className="flex flex-col gap-4">
                   <Button 
-                    onClick={() => {
-                      trackMessenger('contact_page_whatsapp');
-                      const msg = `Hi Chris! I'd like to request a quote for your van services.`;
-                      const phone = "447735852822";
-                      const encoded = encodeURIComponent(msg);
-                      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-                      const waUrl = `https://wa.me/${phone}?text=${encoded}`;
-                      if (isMobile) {
-                        window.location.href = waUrl;
-                      } else {
-                        window.open(waUrl, "_blank");
-                      }
-                    }}
+                  onClick={() => {
+                    trackWhatsAppClick('contact_page_main_cta');
+                    const msg = `Hi Chris! I'd like to request a quote for your van services.`;
+                    const phone = "447735852822";
+                    const encoded = encodeURIComponent(msg);
+                    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+                    const waUrl = `https://wa.me/${phone}?text=${encoded}`;
+                    if (isMobile) {
+                      window.location.href = waUrl;
+                    } else {
+                      window.open(waUrl, "_blank");
+                    }
+                  }}
                     className="w-full bg-green-600 hover:bg-green-700 text-white font-bold text-lg h-20 rounded-xl flex items-center justify-center gap-3"
                   >
                     <img src="/whatsapp-svgrepo-com.svg" alt="WhatsApp" className="w-6 h-6" />
                     WhatsApp Me
                   </Button>
                   <Button 
-                    onClick={() => {
-                      trackMessenger('contact_page_facebook_messenger');
-                      const msg = `Hi Chris! I'd like to request a quote for your van services.`;
-                      const messengerUrl = "https://m.me/cyourmanwithavan";
-                      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-                      if (isMobile) {
-                        window.location.href = messengerUrl;
-                      } else {
-                        window.open(messengerUrl, "_blank");
-                      }
-                    }}
+                  onClick={() => {
+                    trackFacebookMessengerClick('contact_page_main_cta');
+                    const msg = `Hi Chris! I'd like to request a quote for your van services.`;
+                    const messengerUrl = "https://m.me/chrisyourmanwithavankilmarnock";
+                    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+                    if (isMobile) {
+                      window.location.href = messengerUrl;
+                    } else {
+                      window.open(messengerUrl, "_blank");
+                    }
+                  }}
                     className="w-full bg-gradient-to-r from-[#8C9CFF] to-[#4781FF] hover:from-[#7B8BF0] hover:to-[#3C6FE6] text-white font-bold text-lg h-20 rounded-xl flex items-center justify-center gap-3"
                   >
                     <img src="/Facebook_Messenger_logo_2020.svg" alt="Facebook Messenger" className="w-6 h-6" />
@@ -315,14 +318,20 @@ const Contact = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
-                  onClick={handleWhatsAppClick}
+                  onClick={() => {
+                    trackWhatsAppClick('contact_page_final_cta');
+                    handleWhatsAppClick();
+                  }}
                   className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold px-4 sm:px-8 py-5 sm:py-6 rounded-xl flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-lg"
                 >
                   <WhatsAppIcon className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
                   <span>Get Free Quote on WhatsApp</span>
                 </Button>
                 <Button
-                  onClick={handleFacebookMessengerClick}
+                  onClick={() => {
+                    trackFacebookMessengerClick('contact_page_final_cta');
+                    handleFacebookMessengerClick();
+                  }}
                   className="w-full sm:w-auto bg-gradient-to-r from-[#8C9CFF] to-[#4781FF] hover:from-[#7B8BF0] hover:to-[#3C6FE6] text-white font-bold px-4 sm:px-8 py-5 sm:py-6 rounded-xl flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-lg"
                 >
                   <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
