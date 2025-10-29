@@ -25,6 +25,14 @@ export default defineConfig(({ mode }) => ({
           router: ['react-router-dom'],
           ui: ['lucide-react'],
         },
+        // Optimize asset names
+        assetFileNames: (assetInfo) => {
+          // Inline tiny CSS files
+          if (assetInfo.name && assetInfo.name.endsWith('.css') && assetInfo.source && assetInfo.source.length < 4096) {
+            return 'assets/[name].[hash][extname]';
+          }
+          return 'assets/[name].[hash][extname]';
+        },
       },
     },
     // Enable compression
@@ -39,8 +47,8 @@ export default defineConfig(({ mode }) => ({
     chunkSizeWarningLimit: 1000,
     // Enable CSS code splitting
     cssCodeSplit: true,
-    // Inline small assets
-    assetsInlineLimit: 4096,
+    // Inline small assets (increase limit to inline more CSS)
+    assetsInlineLimit: 8192,
   },
   // Optimize dependencies
   optimizeDeps: {

@@ -53,7 +53,7 @@ const Reviews = () => {
   );
 
   return (
-    <section id="reviews" className="py-20 px-4 relative overflow-hidden" style={{ backgroundImage: 'url(/vanimg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+    <section id="reviews" className="py-20 px-4 relative overflow-hidden" style={{ backgroundImage: 'url(/vanimg.webp)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent z-0"></div>
       <div className="container mx-auto max-w-7xl relative z-10">
@@ -95,9 +95,9 @@ const Reviews = () => {
               </blockquote>
               
               <div className="space-y-2">
-                <h4 className="font-semibold text-gray-900 text-base">
+                <h3 className="font-semibold text-gray-900 text-base">
                   {review.name}
-                </h4>
+                </h3>
                 {/* Facebook logo placeholder */}
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">

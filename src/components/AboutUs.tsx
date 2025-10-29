@@ -30,6 +30,7 @@ const AboutUs = () => {
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
+                    aria-label="Follow Chris on Facebook"
                   >
                     <Facebook className="w-6 h-6 text-white" />
                   </a>
@@ -38,6 +39,7 @@ const AboutUs = () => {
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-primary/10 transition-colors"
+                    aria-label="Contact Chris on WhatsApp"
                   >
                     <MessageSquare className="w-6 h-6 text-[hsl(var(--asphalt-grey))]" />
                   </a>

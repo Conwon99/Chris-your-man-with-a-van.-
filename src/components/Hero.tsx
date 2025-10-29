@@ -138,6 +138,7 @@ Please get back to me with a quote. Thanks!`;
                       alt="Arrow decoration"
                       className="w-full h-full object-contain"
                       fallbackSrc="/PNG NOBACK.svg"
+                      loading="lazy"
                     />
                   </div>
                   <span className="text-blue-600 italic text-6xl lg:text-7xl relative z-10">Chris</span>
@@ -229,7 +230,7 @@ Please get back to me with a quote. Thanks!`;
                   }}
                   className="w-full sm:w-1/2 bg-gradient-to-r from-[#8C9CFF] to-[#4781FF] hover:from-[#7B8BF0] hover:to-[#3C6FE6] text-white font-bold text-lg h-20 rounded-xl flex items-center justify-center gap-3"
                 >
-                  <img src="/Facebook_Messenger_logo_2020.svg" alt="Facebook Messenger" className="w-6 h-6" />
+                  <img src="/Facebook_Messenger_logo_2020.svg" alt="" className="w-6 h-6" />
                   Facebook Messenger
               </Button>
               </div>
