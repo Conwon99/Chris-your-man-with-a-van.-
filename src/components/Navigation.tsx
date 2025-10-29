@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone } from "lucide-react";
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import LazyImage from "@/components/LazyImage";
 import { trackPhoneCall, trackNavigation, trackQuoteRequest } from "@/utils/analytics";
 import { useScrollDetection } from "@/hooks/use-scroll-detection";
@@ -8,6 +9,9 @@ import { useScrollDetection } from "@/hooks/use-scroll-detection";
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isScrolled = useScrollDetection(100); // Detect scroll past 100px
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   const handleCallClick = () => {
     trackPhoneCall('navigation');
@@ -22,16 +26,41 @@ const Navigation = () => {
 
   const handleQuoteClick = () => {
     trackQuoteRequest('navigation_button', []);
-    scrollToSection("contact-form");
+    if (isHomePage) {
+      scrollToSection("contact-form");
+    } else {
+      navigate('/#contact-form');
+    }
+  };
+
+  const handleNavigation = (item: { label: string; sectionId?: string; path?: string }) => {
+    trackNavigation(item.label.toLowerCase());
+    setIsMenuOpen(false);
+    
+    if (item.path) {
+      // Navigate to a route
+      navigate(item.path);
+    } else if (item.sectionId) {
+      if (isHomePage) {
+        // On homepage, scroll to section
+        scrollToSection(item.sectionId);
+      } else {
+        // Not on homepage, navigate to homepage and scroll
+        navigate('/');
+        setTimeout(() => {
+          document.getElementById(item.sectionId)?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
   };
 
   const navItems = [
-    { label: "Home", onClick: () => scrollToSection("hero") },
-    { label: "Projects", onClick: () => scrollToSection("project-showcase") },
-    { label: "Services", onClick: () => scrollToSection("services") },
-    { label: "Reviews", onClick: () => scrollToSection("reviews") },
-    { label: "FAQ", onClick: () => scrollToSection("faq") },
-    { label: "Contact", onClick: () => scrollToSection("contact-form") },
+    { label: "Home", sectionId: "hero", path: "/" },
+    { label: "Services", path: "/services" },
+    { label: "Locations", path: "/locations" },
+    { label: "Reviews", sectionId: "reviews" },
+    { label: "FAQ", sectionId: "faq" },
+    { label: "Contact", sectionId: "contact-form" },
   ];
 
   return (
@@ -44,22 +73,29 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="w-20 h-20">
-              <LazyImage
-                src="/vanlogo.png"
-                alt="Chris, Your Man with a Van logo"
-                className="w-full h-full object-contain"
-                fallbackSrc="/vanlogo.png"
-              />
-            </div>
+            <button
+              onClick={() => navigate('/')}
+              className="cursor-pointer"
+              aria-label="Go to homepage"
+            >
+              <div className="w-20 h-20">
+                <LazyImage
+                  src="/vanlogo.png"
+                  alt="Chris, Your Man with a Van logo"
+                  className="w-full h-full object-contain"
+                  fallbackSrc="/vanlogo.png"
+                />
+              </div>
+            </button>
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation & CTA - Right Aligned */}
           <div className="hidden md:flex items-center space-x-8">
+            {/* Desktop Navigation */}
             {navItems.map((item) => (
               <button
                 key={item.label}
-                onClick={item.onClick}
+                onClick={() => handleNavigation(item)}
                 className={`transition-colors duration-300 font-medium ${
                   isScrolled 
                     ? 'text-white hover:text-white/80' 
@@ -69,32 +105,32 @@ const Navigation = () => {
                 {item.label}
               </button>
             ))}
-          </div>
-
-          {/* Desktop CTA */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button
-              onClick={handleCallClick}
-              variant="ghost"
-              className={`flex items-center gap-2 transition-colors duration-300 ${
-                isScrolled 
-                  ? 'text-white/80 hover:text-white' 
-                  : 'text-primary-foreground/80 hover:text-primary-foreground'
-              }`}
-            >
-              <Phone className="w-4 h-4" />
-              07735 852822
-            </Button>
-            <Button
-              onClick={handleQuoteClick}
-              className={`px-6 py-2 rounded-full font-semibold transition-colors duration-300 ${
-                isScrolled 
-                  ? 'bg-green-600 hover:bg-green-700 text-white' 
-                  : 'bg-green-600 hover:bg-green-700 text-white'
-              }`}
-            >
-              Free Quote
-            </Button>
+            
+            {/* Desktop CTA */}
+            <div className="flex items-center space-x-4">
+              <Button
+                onClick={handleCallClick}
+                variant="ghost"
+                className={`flex items-center gap-2 transition-colors duration-300 ${
+                  isScrolled 
+                    ? 'text-white/80 hover:text-white' 
+                    : 'text-primary-foreground/80 hover:text-primary-foreground'
+                }`}
+              >
+                <Phone className="w-4 h-4" />
+                07735 852822
+              </Button>
+              <Button
+                onClick={handleQuoteClick}
+                className={`px-6 py-2 rounded-full font-semibold transition-colors duration-300 ${
+                  isScrolled 
+                    ? 'bg-green-600 hover:bg-green-700 text-white' 
+                    : 'bg-green-600 hover:bg-green-700 text-white'
+                }`}
+              >
+                Free Quote
+              </Button>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -125,7 +161,7 @@ const Navigation = () => {
               {navItems.map((item) => (
                 <button
                   key={item.label}
-                  onClick={item.onClick}
+                  onClick={() => handleNavigation(item)}
                   className={`block w-full text-left px-4 py-2 transition-colors duration-300 ${
                     isScrolled 
                       ? 'text-white hover:text-white/80 hover:bg-white/10' 

@@ -66,14 +66,6 @@ const ContactSection = () => {
             buttonsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          {/* Get Free Quote Button */}
-                <Button 
-            onClick={handleQuoteClick}
-            className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold text-lg px-8 py-4 rounded-xl"
-          >
-            Get a Free Quote
-                </Button>
-
           {/* Call Button */}
           <Button
             onClick={handleCallClick}
@@ -89,14 +81,14 @@ const ContactSection = () => {
           </Button>
 
           {/* WhatsApp Button */}
-                <Button 
-                  onClick={handleMessengerClick}
+          <Button 
+            onClick={handleMessengerClick}
             className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white font-semibold px-8 h-16 rounded-xl flex items-center gap-3 transition-all duration-300 hover:scale-105"
           >
             <WhatsAppIcon className="w-5 h-5 animate-bounce" />
             WhatsApp Me
-                </Button>
-              </div>
+          </Button>
+        </div>
 
         {/* Facebook Link */}
         <div className="text-center mt-8">

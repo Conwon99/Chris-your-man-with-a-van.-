@@ -5,6 +5,11 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# Note: For custom domains, configure www→non-www redirect in Netlify Dashboard
+# Settings → Domain Management → Select domain → Enable "Force HTTPS" and redirect www
+# Current site uses non-www as canonical (all meta tags use non-www URLs)
+
+# SPA routing - must be last
 [[redirects]]
   from = "/*"
   to = "/index.html"

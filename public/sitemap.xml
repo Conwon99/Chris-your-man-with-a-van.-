@@ -12,60 +12,106 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- Services Page -->
+  <!-- Main Service Pages -->
   <url>
-    <loc>https://chrisyourmanwithavan.netlify.app/#services</loc>
+    <loc>https://chrisyourmanwithavan.netlify.app/services</loc>
     <lastmod>2025-01-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- About Page -->
+  <!-- Service Detail Pages -->
   <url>
-    <loc>https://chrisyourmanwithavan.netlify.app/#about</loc>
+    <loc>https://chrisyourmanwithavan.netlify.app/services/small-removals</loc>
     <lastmod>2025-01-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Contact Page -->
   <url>
-    <loc>https://chrisyourmanwithavan.netlify.app/#contact-form</loc>
+    <loc>https://chrisyourmanwithavan.netlify.app/services/courier</loc>
+    <lastmod>2025-01-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://chrisyourmanwithavan.netlify.app/services/waste-removal</loc>
+    <lastmod>2025-01-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://chrisyourmanwithavan.netlify.app/services/end-of-tenancy</loc>
+    <lastmod>2025-01-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://chrisyourmanwithavan.netlify.app/services/flat-pack-assembly</loc>
+    <lastmod>2025-01-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://chrisyourmanwithavan.netlify.app/services/collection-and-delivery</loc>
+    <lastmod>2025-01-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Locations Page -->
+  <url>
+    <loc>https://chrisyourmanwithavan.netlify.app/locations</loc>
     <lastmod>2025-01-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Reviews Page -->
+  <!-- Location Detail Pages -->
   <url>
-    <loc>https://chrisyourmanwithavan.netlify.app/#reviews</loc>
-    <lastmod>2025-01-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- FAQ Page -->
-  <url>
-    <loc>https://chrisyourmanwithavan.netlify.app/#faq</loc>
-    <lastmod>2025-01-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Service Areas Page -->
-  <url>
-    <loc>https://chrisyourmanwithavan.netlify.app/#service-areas</loc>
+    <loc>https://chrisyourmanwithavan.netlify.app/locations/cumnock</loc>
     <lastmod>2025-01-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Gallery Page -->
   <url>
-    <loc>https://chrisyourmanwithavan.netlify.app/#gallery</loc>
+    <loc>https://chrisyourmanwithavan.netlify.app/locations/ayr</loc>
     <lastmod>2025-01-21</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://chrisyourmanwithavan.netlify.app/locations/kilmarnock</loc>
+    <lastmod>2025-01-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://chrisyourmanwithavan.netlify.app/locations/irvine</loc>
+    <lastmod>2025-01-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://chrisyourmanwithavan.netlify.app/locations/troon</loc>
+    <lastmod>2025-01-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://chrisyourmanwithavan.netlify.app/locations/prestwick</loc>
+    <lastmod>2025-01-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
 </urlset>

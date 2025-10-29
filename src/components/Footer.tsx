@@ -1,4 +1,5 @@
 import { Phone, Mail, MapPin, Facebook } from "lucide-react";
+import { Link } from "react-router-dom";
 import { trackExternalLink, trackNavigation } from "@/utils/analytics";
 
 const Footer = () => {
@@ -51,34 +52,34 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3 text-white">
               <li>
-                <a href="#services" onClick={() => trackNavigation('services')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
+                <Link to="/services" onClick={() => trackNavigation('services')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
                   • Small Removals & House Moves
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" onClick={() => trackNavigation('services')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
+                <Link to="/services" onClick={() => trackNavigation('services')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
                   • Courier Services & Delivery
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" onClick={() => trackNavigation('services')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
+                <Link to="/services" onClick={() => trackNavigation('services')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
                   • Tip Runs & Waste Removal
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" onClick={() => trackNavigation('services')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
+                <Link to="/services" onClick={() => trackNavigation('services')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
                   • Flat-Pack Assembly
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" onClick={() => trackNavigation('services')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
+                <Link to="/services" onClick={() => trackNavigation('services')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
                   • In-Store Collection & Delivery
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" onClick={() => trackNavigation('services')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
+                <Link to="/services" onClick={() => trackNavigation('services')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
                   • End-of-Tenancy Clearance
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -90,49 +91,43 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3 text-white">
               <li>
-                <a href="#service-areas" onClick={() => trackNavigation('service-areas')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
+                <Link to="/locations" onClick={() => trackNavigation('locations')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
                   • Van Services in Ayrshire
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#service-areas" onClick={() => trackNavigation('service-areas')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
+                <Link to="/locations" onClick={() => trackNavigation('locations')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
                   • Removals in Ayrshire
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#service-areas" onClick={() => trackNavigation('service-areas')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
+                <Link to="/locations" onClick={() => trackNavigation('locations')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
                   • Courier Services across the UK
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#service-areas" onClick={() => trackNavigation('service-areas')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
+                <Link to="/locations" onClick={() => trackNavigation('locations')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
                   • Waste Removal in Ayrshire
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#service-areas" onClick={() => trackNavigation('service-areas')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
+                <Link to="/locations" onClick={() => trackNavigation('locations')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
                   • Delivery Services in Ayrshire
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#service-areas" onClick={() => trackNavigation('service-areas')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
-                  • Flat-Pack Assembly in Ayrshire
-                </a>
+                <Link to="/locations" onClick={() => trackNavigation('locations')} className="hover:text-[hsl(var(--sunshine-yellow))] transition-colors">
+                  • View All Locations
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* About Chris */}
+          {/* Social Media */}
           <div>
             <h4 className="font-display text-xl font-bold text-[hsl(var(--sunshine-yellow))] mb-6">
-              About Chris
+              Follow Us
             </h4>
-            <p className="text-white leading-relaxed mb-6">
-              Hi, I'm Chris—your local, friendly man with a van in Cumnock. I care about reliable service, 
-              fair prices and getting your job done right. Whether you need small removals, courier services, 
-              waste removal, or flat-pack assembly, I'm always happy to help—no job is too small.
-            </p>
-            
             <div className="flex items-center gap-4">
               <a 
                 href="https://www.facebook.com/chrisyourmanwithavankilmarnock" 

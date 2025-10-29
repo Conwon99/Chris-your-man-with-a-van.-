@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Truck, Package, Trash2, ShoppingCart, Home, Scissors, Wrench } from "lucide-react";
 import LazyImage from "@/components/LazyImage";
@@ -7,6 +8,7 @@ const ServicesGrid = () => {
   const services = [
     {
       title: "Small Removals",
+      slug: "small-removals",
       description: "Professional small removal services in Cumnock and surrounding areas",
       features: ["House moves", "Office relocations", "Furniture transport", "Personal service"],
       image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
@@ -15,7 +17,8 @@ const ServicesGrid = () => {
       color: "primary-orange"
     },
     {
-      title: "Courier Services", 
+      title: "Courier Services",
+      slug: "courier",
       description: "Reliable courier and delivery services across Ayrshire",
       features: ["Same-day delivery", "Package collection", "Secure transport"],
       image: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
@@ -25,6 +28,7 @@ const ServicesGrid = () => {
     },
     {
       title: "Tip Runs & Waste Removal",
+      slug: "waste-removal",
       description: "SEPA registered waste removal and tip run services",
       features: ["Bin bag collection", "Garage clearances", "Shed clearances"],
       image: "https://images.unsplash.com/photo-1581578731548-c6a0c3f2f2c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
@@ -34,6 +38,7 @@ const ServicesGrid = () => {
     },
     {
       title: "In-Store Collection & Delivery",
+      slug: "collection-and-delivery",
       description: "Collection from stores and delivery to your door",
       features: ["Furniture stores", "Online purchases", "Same-day service", "Careful handling"],
       image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
@@ -43,6 +48,7 @@ const ServicesGrid = () => {
     },
     {
       title: "End-of-Tenancy Clearance",
+      slug: "end-of-tenancy",
       description: "Complete property clearance for tenants and landlords",
       features: ["Full property clearance", "Furniture removal"],
       image: "/2.png",
@@ -52,6 +58,7 @@ const ServicesGrid = () => {
     },
     {
       title: "Flat Pack Assembly",
+      slug: "flat-pack-assembly",
       description: "Professional flat pack furniture assembly service",
       features: ["IKEA furniture", "All major brands", "Tools provided", "Expert assembly"],
       image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
@@ -61,9 +68,8 @@ const ServicesGrid = () => {
     }
   ];
 
-  const handleQuoteClick = (serviceTitle: string) => {
-    trackServiceClick(serviceTitle, 'services_grid');
-    document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
+  const handleLearnMoreClick = (serviceTitle: string, serviceSlug: string) => {
+    trackServiceClick(serviceTitle, 'services_grid_learn_more');
   };
 
   return (
@@ -126,13 +132,18 @@ const ServicesGrid = () => {
                 </ul>
 
                 {/* CTA Button */}
-                <Button 
-                  onClick={() => handleQuoteClick(service.title)}
-                  className="w-full bg-[hsl(var(--primary-orange))] hover:bg-[hsl(var(--dark-orange))] text-white font-semibold rounded-full group/button mt-auto"
+                <Link 
+                  to={`/services/${service.slug}`}
+                  onClick={() => handleLearnMoreClick(service.title, service.slug)}
+                  className="mt-auto"
                 >
-                  Request a Quote
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover/button:translate-x-1 transition-transform" />
-                </Button>
+                  <Button 
+                    className="w-full bg-[hsl(var(--primary-orange))] hover:bg-[hsl(var(--dark-orange))] text-white font-semibold rounded-full group/button"
+                  >
+                    Learn more
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover/button:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
               </div>
             </div>
           ))}

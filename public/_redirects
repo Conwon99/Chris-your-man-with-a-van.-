@@ -7,10 +7,14 @@
 /lawn-mowing     /index.html   200
 /troon           /index.html   200
 
-# Redirect old URLs if any
-/about           /#about       301
-/services        /#services    301
-/contact         /#contact-form 301
+# Redirect old hash-based URLs to proper routes (301 redirects for SEO)
+/#services       /services     301
+/#about          /             301
+/#contact-form   /             301
+/#reviews        /             301
+/#faq           /             301
+/#service-areas  /locations    301
+/#gallery       /             301
 
 # Handle common bot requests
 /robots.txt      /robots.txt   200
