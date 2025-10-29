@@ -54,8 +54,8 @@ const Services = () => {
         "Friendly, professional service",
         "Free quotes"
       ],
-      image: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-      fallbackImage: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      image: "/services/delivery.jpg",
+      fallbackImage: "/services/delivery.jpg",
       icon: Package,
       color: "primary-orange",
       details: "Need something delivered quickly? I offer fast, reliable courier services across Ayrshire and throughout the UK. Whether it's documents, parcels, or larger items, your package is handled with care and delivered on time. Same-day service is available for urgent deliveries."
@@ -72,8 +72,8 @@ const Services = () => {
         "Garden waste removal",
         "Eco-friendly disposal"
       ],
-      image: "https://images.unsplash.com/photo-1581578731548-c6a0c3f2f2c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-      fallbackImage: "https://images.unsplash.com/photo-1581578731548-c6a0c3f2f2c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      image: "/services/tiprun.jpg",
+      fallbackImage: "/services/tiprun.jpg",
       icon: Trash2,
       color: "primary-orange",
       details: "As a SEPA registered waste carrier, I provide professional waste removal services. From regular bin bag collections to full garage or shed clearances, I'll dispose of your unwanted items responsibly. All waste is taken to licensed disposal facilities, ensuring eco-friendly and legal disposal."
@@ -90,8 +90,8 @@ const Services = () => {
         "White glove service",
         "Delivery and placement"
       ],
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-      fallbackImage: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      image: "/services/in person delivery.jpg",
+      fallbackImage: "/services/in person delivery.jpg",
       icon: ShoppingCart,
       color: "primary-orange",
       details: "Bought furniture but can't collect it? I'll collect from stores or warehouses and deliver to your home. All items are handled with care, and I can even help with placement in your home. Save time and avoid the hassle - let me collect and deliver your purchases safely."
@@ -108,8 +108,8 @@ const Services = () => {
         "Tenant and landlord friendly",
         "Property ready for handover"
       ],
-      image: "/2.png",
-      fallbackImage: "/2.png",
+      image: "/services/endtenancy.jpg",
+      fallbackImage: "/services/endtenancy.jpg",
       icon: Home,
       color: "primary-orange",
       details: "Moving out and need to clear the property? I provide comprehensive end-of-tenancy clearance services. From removing old furniture to clearing out all belongings, I'll ensure the property is ready for inspection. Fast, reliable service that helps tenants and landlords alike."
@@ -224,13 +224,15 @@ const Services = () => {
                   {/* Image */}
                   <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
                     <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                      <LazyImage
-                        src={service.image}
-                        alt={service.title}
-                        className="w-full h-[400px] object-cover"
-                        fallbackSrc={service.fallbackImage}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                      <div className="aspect-[4/3] relative">
+                        <LazyImage
+                          src={service.image}
+                          alt={service.title}
+                          className="!relative w-full h-full object-cover"
+                          fallbackSrc={service.fallbackImage}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none z-10"></div>
+                      </div>
                     </div>
                   </div>
 
@@ -265,10 +267,10 @@ const Services = () => {
 
                     {/* CTA Buttons */}
                     <div className="flex flex-col sm:flex-row gap-4">
-                      <Link to={`/services/${service.slug}`} onClick={() => trackServiceClick(service.title, 'services_page_read_more')}>
+                      <Link to={`/services/${service.slug}`} onClick={() => trackServiceClick(service.title, 'services_page_read_more')} className="w-full sm:w-auto">
                         <Button
                           variant="outline"
-                          className="border-2 border-[hsl(var(--primary-orange))] text-[hsl(var(--primary-orange))] hover:bg-[hsl(var(--primary-orange))] hover:text-white font-semibold px-8 py-6 rounded-full group"
+                          className="w-full border-2 border-[hsl(var(--primary-orange))] text-[hsl(var(--primary-orange))] hover:bg-[hsl(var(--primary-orange))] hover:text-white font-semibold px-8 py-6 rounded-full group"
                         >
                           Read More
                           <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -276,7 +278,7 @@ const Services = () => {
                       </Link>
                       <Button
                         onClick={() => handleQuoteClick(service.title)}
-                        className="bg-[hsl(var(--primary-orange))] hover:bg-[hsl(var(--dark-orange))] text-white font-semibold px-8 py-6 rounded-full group"
+                        className="w-full sm:w-auto bg-[hsl(var(--primary-orange))] hover:bg-[hsl(var(--dark-orange))] text-white font-semibold px-8 py-6 rounded-full group"
                       >
                         Get Quote
                         <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />

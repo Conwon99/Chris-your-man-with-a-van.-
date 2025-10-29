@@ -39,17 +39,25 @@ const Navigation = () => {
     
     if (item.path) {
       // Navigate to a route
-      navigate(item.path);
+      if (item.path === '/' && isHomePage && item.sectionId) {
+        // If already on homepage and clicking Home, scroll to top/hero
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        navigate(item.path);
+      }
     } else if (item.sectionId) {
       if (isHomePage) {
         // On homepage, scroll to section
         scrollToSection(item.sectionId);
       } else {
-        // Not on homepage, navigate to homepage and scroll
-        navigate('/');
+        // Not on homepage, navigate to homepage with hash and scroll after navigation
+        navigate(`/#${item.sectionId}`);
         setTimeout(() => {
-          document.getElementById(item.sectionId)?.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
+          const element = document.getElementById(item.sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 300);
       }
     }
   };
@@ -60,7 +68,7 @@ const Navigation = () => {
     { label: "Locations", path: "/locations" },
     { label: "Reviews", sectionId: "reviews" },
     { label: "FAQ", sectionId: "faq" },
-    { label: "Contact", sectionId: "contact-form" },
+    { label: "Contact", path: "/contact" },
   ];
 
   return (

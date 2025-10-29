@@ -149,9 +149,9 @@ const Footer = () => {
             <div className="text-[hsl(var(--sunshine-yellow))] text-sm">
               © {currentYear} Chris, Your Man with a Van. All rights reserved.
             </div>
-            <div className="text-[hsl(var(--sunshine-yellow))] text-sm text-center">
-              Website designed by <a href="https://connorsdesignsolutions.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline">Connor's Design Solutions</a>
-            </div>
+                    <div className="text-[hsl(var(--sunshine-yellow))] text-sm text-center">
+                      Website designed by <a href="https://codapixel.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline">CodaPixel</a>
+                    </div>
           </div>
         </div>
       </div>

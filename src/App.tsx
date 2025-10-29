@@ -10,6 +10,7 @@ import Services from "./pages/Services";
 import ServiceDetail from "./pages/ServiceDetail";
 import Locations from "./pages/Locations";
 import LocationDetail from "./pages/LocationDetail";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import { trackPageView } from "./utils/analytics";
 
@@ -41,6 +42,7 @@ const App = () => (
             <Route path="/services/:slug" element={<ServiceDetail />} />
             <Route path="/locations" element={<Locations />} />
             <Route path="/locations/:slug" element={<LocationDetail />} />
+            <Route path="/contact" element={<Contact />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

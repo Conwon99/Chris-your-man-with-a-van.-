@@ -322,9 +322,16 @@ const LocationDetail = () => {
               <h1 className="font-display text-5xl lg:text-6xl font-bold text-white mb-6">
                 Van Services in {location.name}
               </h1>
-              <p className="text-xl lg:text-2xl text-white/90 leading-relaxed">
+              <p className="text-xl lg:text-2xl text-white/90 leading-relaxed mb-8">
                 Professional Van Services in {location.fullName}
               </p>
+              <Button
+                onClick={handleWhatsAppClick}
+                className="bg-green-600 hover:bg-green-700 text-white font-bold px-6 sm:px-8 py-5 sm:py-6 rounded-xl flex items-center justify-center gap-3 text-base sm:text-lg mx-auto"
+              >
+                <WhatsAppIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                Get Free Quote via WhatsApp
+              </Button>
             </div>
           </div>
         </section>

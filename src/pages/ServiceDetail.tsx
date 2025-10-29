@@ -826,6 +826,27 @@ const ServiceDetail = () => {
           </div>
         </section>
 
+        {/* Mid-Page WhatsApp CTA */}
+        <section className="py-16 px-4 bg-[hsl(var(--background))]">
+          <div className="container mx-auto max-w-4xl">
+            <div className="bg-gradient-to-r from-green-600/20 to-green-700/20 rounded-2xl p-6 sm:p-8 border-2 border-green-600/30 text-center">
+              <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mb-4">
+                Ready to Get Started?
+              </h3>
+              <p className="text-base sm:text-lg text-white/90 mb-6 px-2">
+                Get a free quote for {service.title.toLowerCase()} via WhatsApp - quick response guaranteed!
+              </p>
+              <Button
+                onClick={handleWhatsAppClick}
+                className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold px-4 sm:px-8 py-5 sm:py-6 rounded-xl flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-lg mx-auto"
+              >
+                <WhatsAppIcon className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+                <span>Get Free Quote on WhatsApp</span>
+              </Button>
+            </div>
+          </div>
+        </section>
+
         {/* Customer Service Promise Section */}
         <section className="py-20 px-4 bg-[hsl(var(--background))]">
           <div className="container mx-auto max-w-7xl">
@@ -951,31 +972,31 @@ const ServiceDetail = () => {
         {/* Final CTA Section */}
         <section className="py-20 px-4 bg-[hsl(var(--background))]">
           <div className="container mx-auto max-w-7xl">
-            <div className="bg-gradient-to-r from-[hsl(var(--primary-orange))]/20 to-[hsl(var(--sunshine-yellow))]/20 rounded-2xl p-12 border-2 border-[hsl(var(--primary-orange))]/30 text-center">
-              <h2 className="font-display text-4xl lg:text-5xl font-bold text-white mb-6">
+            <div className="bg-gradient-to-r from-[hsl(var(--primary-orange))]/20 to-[hsl(var(--sunshine-yellow))]/20 rounded-2xl p-6 sm:p-12 border-2 border-[hsl(var(--primary-orange))]/30 text-center">
+              <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
                 Ready for Fast, Reliable {service.title}?
               </h2>
-              <p className="text-xl text-white/90 mb-8">
+              <p className="text-base sm:text-xl text-white/90 mb-8 px-2">
                 Contact Chris Today!
               </p>
-              <p className="text-lg text-white/80 mb-2">
+              <p className="text-base sm:text-lg text-white/80 mb-2">
                 <strong>Available Day & Night</strong>
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                 <Button
                   onClick={handleWhatsAppClick}
-                  className="bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-6 rounded-xl flex items-center gap-3 text-lg"
+                  className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold px-4 sm:px-8 py-5 sm:py-6 rounded-xl flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-lg"
                 >
-                  <WhatsAppIcon className="w-5 h-5" />
-                  WhatsApp Me
+                  <WhatsAppIcon className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+                  <span>WhatsApp Me</span>
                 </Button>
                 <Button
                   onClick={handleFacebookMessengerClick}
-                  className="bg-gradient-to-r from-[#8C9CFF] to-[#4781FF] hover:from-[#7B8BF0] hover:to-[#3C6FE6] text-white font-bold px-8 py-6 rounded-xl flex items-center gap-3 text-lg"
+                  className="w-full sm:w-auto bg-gradient-to-r from-[#8C9CFF] to-[#4781FF] hover:from-[#7B8BF0] hover:to-[#3C6FE6] text-white font-bold px-4 sm:px-8 py-5 sm:py-6 rounded-xl flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-lg"
                 >
-                  <MessageSquare className="w-5 h-5" />
-                  Facebook Messenger
+                  <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+                  <span>Facebook Messenger</span>
                 </Button>
               </div>
 
